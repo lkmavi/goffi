@@ -90,6 +90,8 @@ file app   # statically linked
 scripts/check-elf-linking.sh --static ./app
 ```
 
+Under `-tags goffi_static`, errno capture is unavailable (always returns 0): `ErrnoFnAddr()` is a no-op so the assembly trampoline skips `__errno_location` / `__error`, which need dynamic libc.
+
 `FROM scratch` + Vulkan/Wayland/libX11 via host `dlopen` is not possible without either `ld.so` or a userspace ELF loader (see [docs/ADR-001-userspace-elf-loader.md](docs/ADR-001-userspace-elf-loader.md)). Windows is unaffected (`LoadLibraryW` via ntdll).
 
 ### Example: Calling strlen
